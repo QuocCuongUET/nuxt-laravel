@@ -6,6 +6,8 @@
         <h2 class="subtitle">{{ $auth.user.given_name }}</h2>
         <h2 class="subtitle">{{ $auth.user.sub }}</h2>
         <button @click="logout">Logout</button>
+        <button @click="loginToken">LoginToken</button>
+        <nuxt-link to="/post">Posts</nuxt-link>
       </div>
     </div>
   </div>
@@ -15,15 +17,38 @@
 export default {
   data() {
     return {
-      user: ''
+      user: '',
+      loginData: {
+        token: '',
+        provider: ''
+      }
     }
-  },
-  mounted() {
-    this.$axios.get('/something')
   },
   methods: {
     logout() {
       this.$auth.logout()
+    },
+    loginToken() {
+      console.log();
+      this.loginData.token = this.getCookie('auth._token.google').split(' ')[1]
+      this.loginData.provider = this.$auth.strategy.name
+      console.log(this.loginData)
+      this.$auth.loginWith('local', { data: this.loginData })
+    },
+    getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return "";
     }
   }
 }

@@ -36,9 +36,9 @@ export default {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
+    // '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/stylelint-module
-    '@nuxtjs/stylelint-module'
+    // '@nuxtjs/stylelint-module'
   ],
   /*
    ** Nuxt.js modules
@@ -61,9 +61,32 @@ export default {
 
   auth: {
     strategies: {
-        google: {
-          client_id: '905636123102-je6r0mdtetrgc9gl901g5h2pd17pndn4.apps.googleusercontent.com'
-        },
+      local: {
+        endpoints: {
+          login: {
+            url: '/login',
+            method: 'post',
+            propertyName: 'token'
+          },
+          logout: {
+            url: '/logout',
+            method: 'post',
+          },
+          user: {
+            url: '/user',
+            method: 'get',
+            propertyName: 'user'
+          }
+        }
+      },
+      google: {
+        client_id: '905636123102-je6r0mdtetrgc9gl901g5h2pd17pndn4.apps.googleusercontent.com'
+      },
+      facebook: {
+        client_id: '244741383410088',
+        userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
+        scope: ['public_profile', 'email', 'user_birthday']
+      },
     }
   },
 
@@ -80,6 +103,15 @@ export default {
      */
     extend(config, ctx) {}
   },
+
+  // proxy: {
+  //   '/api': {
+  //     target: 'https://api.learn.com',
+  //     pathRewrite: {
+  //       '^/api' : '/'
+  //       }
+  //     }
+  // },
 
   server: {
     port: 3000, // default: 3000

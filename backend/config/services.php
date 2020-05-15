@@ -33,7 +33,13 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => 'http://your-callback-url',
+        'redirect' => 'https://api.learn.com:8088/api/v1/login/google/callback'
+    ],
+
+    'facebook' => [
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => 'https://api.learn.com:8088/api/v1/login/facebook/callback'
     ]
 
 ];
