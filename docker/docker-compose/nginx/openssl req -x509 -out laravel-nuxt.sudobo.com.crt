@@ -1,0 +1,4 @@
+openssl req -x509 -out api.learn.com.crt -keyout api.learn.com.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=api.learn.com' -extensions EXT -config <( \
+   printf "[dn]\nCN=api.learn.com\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:api.learn.com\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")

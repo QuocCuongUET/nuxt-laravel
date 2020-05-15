@@ -1,3 +1,6 @@
+import path from 'path'
+import fs from 'fs'
+
 export default {
   mode: 'spa',
   /*
@@ -45,13 +48,29 @@ export default {
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
+    '@nuxtjs/proxy'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'https://api.learn.com:8088/api/v1',
+  },
+
+  auth: {
+    strategies: {
+        google: {
+          client_id: '905636123102-je6r0mdtetrgc9gl901g5h2pd17pndn4.apps.googleusercontent.com'
+        },
+    }
+  },
+
+  router: {
+    middleware: ['auth']
+  },
+
   /*
    ** Build configuration
    */
@@ -60,5 +79,14 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
-  }
+  },
+
+  server: {
+    port: 3000, // default: 3000
+    host: '0.0.0.0', // default: localhost
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'frontend.learn.com.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'frontend.learn.com.crt'))
+    }
+  },
 }

@@ -40,28 +40,12 @@ services:
     restart: unless-stopped
     ports:
       - ${BACK_END_PORT}:80
+      - ${BACK_END_PORT_HTTPS}:443
     volumes:
       - ../backend/.:/var/www/backend
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
       - lara-nuxt
-
-  frontend:
-    build:
-      context: ../frontend/.
-      dockerfile: ../docker/frontend/Dockerfile
-    image: lara-nuxt-frontend
-    container_name: lara-nuxt-frontend
-    restart: unless-stopped
-    working_dir: /var/www/frontend
-    ports:
-      - ${FRONT_END_PORT}:3000
-    volumes:
-      - ../frontend/./:/var/www/frontend
-    command: "npm run dev"
-    networks:
-      - lara-nuxt
-
 
 networks:
   lara-nuxt:
