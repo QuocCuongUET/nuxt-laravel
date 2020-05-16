@@ -93,4 +93,9 @@ class LoginController extends Controller
 
         return response()->json(compact('user'));
     }
+
+    public function logout()
+    {
+        $this->auth->invalidate($this->auth->getToken());
+    }
 }
