@@ -8,6 +8,7 @@
         <button @click="logout">Logout</button>
         <button @click="loginToken">LoginToken</button>
         <nuxt-link to="/post">Posts</nuxt-link>
+        <nuxt-link to="/product">Product</nuxt-link>
       </div>
     </div>
   </div>
