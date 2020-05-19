@@ -8,8 +8,9 @@ for (let i = 1; i <= 10; i++) {
 }
 
 export const state = {
-    products: testData,
-    productsTotal: testData.length,
+    products: [],
+    categoriesData: [],
+    productsTotal: 0,
     currentPage: 1,
     pageSize: 4,
     currentCategory: "All"
@@ -23,7 +24,7 @@ export const getters = {
     pageCount: (state, getters) => Math.ceil(getters.productsFilteredByCategory.length / state.pageSize),
     productsFilteredByCategory: state => state.products
         .filter(p => state.currentCategory == 'All' || p.category == state.currentCategory),
-    categories: state => ["All", ...new Set(state.products.map(p => p.category).sort())]
+    categories: state => ["All", ...state.categoriesData]
 }
 
 export const mutations= {
@@ -37,6 +38,11 @@ export const mutations= {
     setCurrentCategory(state, category) {
         state.currentCategory = category;
         state.currentPage = 1;
-    }
+    },
+    setData(state, data) {
+      state.products = data.pdata;
+      state.productsTotal = data.pdata.length;
+      state.categoriesData = data.cdata.sort();
+    },
 }
 

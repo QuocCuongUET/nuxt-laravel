@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs'
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   /*
    ** Headers of the page
    */
@@ -56,7 +56,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://api.learn.com:8088/api/v1',
+    baseURL: 'https://api.learn.com:8088/api/v1'
   },
 
   auth: {
@@ -106,7 +106,7 @@ export default {
 
   // proxy: {
   //   '/api': {
-  //     target: 'https://api.learn.com',
+  //     target: 'https://api.learn.com:8088',
   //     pathRewrite: {
   //       '^/api' : '/'
   //       }
@@ -121,4 +121,5 @@ export default {
       cert: fs.readFileSync(path.resolve(__dirname, 'frontend.learn.com.crt'))
     }
   },
+
 }
