@@ -10,15 +10,8 @@ export default {
   components: {
     Store
   },
-  async fetch ({$axios, store}) {
-    let response = await $axios.get('/products');
-    let products = response.data.products;
-    let data = {
-      'pdata': products,
-      'cdata': []
-    }
-
-    store.commit('products/setData', data);
+  async fetch ({ store }) {
+    await store.dispatch('products/GET_PRODUCTS');
   }
 }
 </script>

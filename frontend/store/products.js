@@ -7,14 +7,14 @@ for (let i = 1; i <= 10; i++) {
     })
 }
 
-export const state = {
+export const state = () => ({
     products: [],
     categoriesData: [],
     productsTotal: 0,
     currentPage: 1,
     pageSize: 4,
     currentCategory: "All"
-}
+})
 
 export const getters = {
     processedProducts: (state, getters) => {
@@ -39,10 +39,22 @@ export const mutations= {
         state.currentCategory = category;
         state.currentPage = 1;
     },
-    setData(state, data) {
+    SET_PRODUCTS(state, data) {
       state.products = data.pdata;
       state.productsTotal = data.pdata.length;
       state.categoriesData = data.cdata.sort();
     },
+}
+
+export const actions = {
+  async GET_PRODUCTS ({ commit }) {
+    let response  = await this.$axios.get('/products');
+    let products = response.data.products;
+    let data = {
+      'pdata': products,
+      'cdata': []
+    }
+    commit('SET_PRODUCTS', data);
+  }
 }
 

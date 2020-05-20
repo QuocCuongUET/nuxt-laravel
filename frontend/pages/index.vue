@@ -10,12 +10,16 @@
         <nuxt-link to="/post">Posts</nuxt-link>
         <nuxt-link to="/products">Product</nuxt-link>
       </div>
+      <div v-else>
+        <h2> Not Log In</h2>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  auth: false,
   data() {
     return {
       user: '',
@@ -30,7 +34,6 @@ export default {
       this.$auth.logout()
     },
     loginToken() {
-      console.log();
       this.loginData.token = this.getCookie('auth._token.google').split(' ')[1]
       this.loginData.provider = this.$auth.strategy.name
       console.log(this.loginData)

@@ -2,7 +2,7 @@ import path from 'path'
 import fs from 'fs'
 
 export default {
-  mode: 'spa',
+  mode: 'universal',
   /*
    ** Headers of the page
    */
@@ -30,7 +30,9 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    '~/plugins/axios'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -49,7 +51,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    'cookie-universal-nuxt'
   ],
   /*
    ** Axios module configuration
@@ -60,6 +63,15 @@ export default {
   },
 
   auth: {
+    redirect: {
+      home: '/'
+    },
+    cookie: {
+      prefix: 'auth.',
+      options: {
+        path: '/'
+      }
+    },
     strategies: {
       local: {
         endpoints: {
@@ -103,15 +115,6 @@ export default {
      */
     extend(config, ctx) {}
   },
-
-  // proxy: {
-  //   '/api': {
-  //     target: 'https://api.learn.com:8088',
-  //     pathRewrite: {
-  //       '^/api' : '/'
-  //       }
-  //     }
-  // },
 
   server: {
     port: 3000, // default: 3000
