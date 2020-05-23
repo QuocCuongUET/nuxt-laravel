@@ -5,9 +5,25 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Product;
+use App\Http\Resources\JSONAPICollection;
+use App\Http\Resources\JSONAPIResource;
+use App\Services\JSONAPIService;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ProductsController extends Controller
 {
+
+    /**
+     * @var JSONAPIService
+     */
+    private $service;
+
+    public function __construct(JSONAPIService $service)
+    {
+        $this->service = $service;
+        // $this->authorizeResource(Book::class, 'book');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +31,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Product::all()->toArray();
-
-        return response()->json(compact('products'));
+        return $this->service->fetchResources(Product::class, 'products');
     }
 
     /**
@@ -47,9 +61,9 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($product)
     {
-        //
+        return $this->service->fetchResource(Product::class, $product, 'products');
     }
 
     /**

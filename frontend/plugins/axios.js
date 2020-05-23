@@ -5,8 +5,8 @@ export default function ({ $axios, store }) {
         rejectUnauthorized: false
       });
     $axios.onRequest(config => {
-        // if (process.env.dev) {
+        if (process.env.NODE_ENV === 'development') {
             config.httpsAgent = agent;
-        // }
+        }
     });
 }

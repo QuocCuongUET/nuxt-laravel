@@ -31,7 +31,8 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    '~/plugins/axios'
+    '~/plugins/axios',
+    '~/plugins/filters'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -52,7 +53,9 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
     '@nuxtjs/proxy',
-    'cookie-universal-nuxt'
+    ['nuxt-vuex-localstorage', {
+      localStorage: ['cart/lines'],
+    }]
   ],
   /*
    ** Axios module configuration

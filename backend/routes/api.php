@@ -24,7 +24,7 @@ Route::post('v1/logout', 'API\Auth\LoginController@logout')->name('api.logout');
 Route::get('v1/login/{provider}/callback', 'API\Auth\LoginController@handleProviderCallback')->name('api.login.provider');
 
 Route::middleware('jwt.auth')->prefix('v1')->group(function () {
-    Route::resource('categories', 'API\CategoriesController');
+    Route::apiResource('categories', 'API\CategoriesController');
 
-    Route::resource('products', 'API\ProductsController');
+    Route::apiResource('products', 'API\ProductsController');
 });

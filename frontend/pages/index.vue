@@ -34,9 +34,8 @@ export default {
       this.$auth.logout()
     },
     loginToken() {
-      this.loginData.token = this.getCookie('auth._token.google').split(' ')[1]
       this.loginData.provider = this.$auth.strategy.name
-      console.log(this.loginData)
+      this.loginData.token = this.getCookie('auth._token.' + this.loginData.provider).split(' ')[1]
       this.$auth.loginWith('local', { data: this.loginData })
     },
     getCookie(cname) {

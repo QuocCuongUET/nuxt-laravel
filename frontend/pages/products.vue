@@ -4,6 +4,7 @@
 
 <script>
 import Store from '../components/Store';
+import { mapActions } from "vuex";
 
 export default {
   name: 'products',
@@ -12,6 +13,8 @@ export default {
   },
   async fetch ({ store }) {
     await store.dispatch('products/GET_PRODUCTS');
-  }
+  },
+
+
 }
 </script>
